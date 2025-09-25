@@ -4,6 +4,9 @@ int	ft_atoi_base(const char *str, int str_base)
     int sign = 1;
     int i = 0;
     int result = 0;
+    int digit;
+    if (str_base < 2 || str_base >16)
+        return (0);
     if(str[i]=='-')
     {
         sign=-1;
@@ -11,16 +14,18 @@ int	ft_atoi_base(const char *str, int str_base)
     }
     char *s = "0123456789abcdef";
 
-    //2f
+   
     while(str[i])
     {
-        result*=str_base;
         if(str[i]>='0' && str[i]<='9')
-            result+= str[i] - '0';
-        if(str[i]>='a' && str[i]<='f')
-            result+=str[i]-'a'+10;
-        if(str[i]>='A' && str[i]<='F')
-            result+=str[i]-'A'+10;
+            digit = str[i] - '0';
+        else if(str[i]>='a' && str[i]<='f')
+            digit =str[i]-'a'+10;
+        else if(str[i]>='A' && str[i]<='F')
+            digit=str[i]-'A'+10;
+        else
+            break;
+        result = result*str_base + digit;
         i++;
     }
     return(result*sign);
@@ -28,5 +33,5 @@ int	ft_atoi_base(const char *str, int str_base)
 #include<stdio.h>
 int main()
 {
-    printf("%d",ft_atoi_base("-77", 8));
+    printf("%d",ft_atoi_base("101", 2));
 }
